@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BATCH_FILE = 'generate_random.bat'
+        BATCH_FILE = 'generate_random_no.bat'
         NUMBER_FILE = 'number.txt'
     }
 
