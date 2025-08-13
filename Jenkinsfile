@@ -18,7 +18,7 @@ pipeline {
         stage('Generate Number') {
             steps {
                 dir('workspace') {
-                    bat 'generate_number.bat'
+                    bat 'generate_random_number.bat'
                 }
             }
         }
