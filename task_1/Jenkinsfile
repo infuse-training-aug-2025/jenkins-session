@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL = 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
+        REPO_URL = 'https://github.com/infuse-training-aug-2025/jenkins-session'
         BRANCH_NAME = 'roshan'
     }
 
