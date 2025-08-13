@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_REPO = 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
+        BRANCH = 'ekata_n'
+        SCRIPT_NAME = 'trial.bat'
+    }
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git branch: "${BRANCH}", url: "${GIT_REPO}"
+            }
+        }
+
+        stage('Run Batch Script') {
+            steps {
+                script {
+                    def status = bat(script: "${SCRIPT_NAME}", returnStatus: true)
+                    if (status == 0) {
+                        echo "Batch script succeeded."
+                    } else {
+                        error "Batch script failed with exit code ${status}."
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            deleteDir()
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        aborted {
+            echo 'Pipeline was aborted.'
+        }
+    }
+}
