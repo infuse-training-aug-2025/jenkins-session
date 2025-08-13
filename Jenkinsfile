@@ -2,30 +2,29 @@ pipeline {
     agent any
 
     stages {
-        stage('Generate Random Number') {
+        stage('Clone Repo') {
             steps {
-                bat 'random_number.bat > number_output.txt'
+                git branch: 'Shreyas', url: 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
             }
         }
-        stage('Check Number') {
+        stage('Run batch script') {
             steps {
                 script {
-                    // Read the output from the batch file
-                    def output = readFile('number_output.txt').trim()
-                    // Extract the number using regex
-                    def matcher = output =~ /Generated Random Number: (\d+)/
-                    if (matcher) {
-                        def number = matcher[0][1] as Integer
-                        if (number < 30) {
-                            error "Number is less than 30 (${number}). Failing the build."
-                        } else {
-                            echo "Number is ${number}. Build passed."
-                        }
+                    def output = bat(script: 'random_number.bat', returnStdout: true).trim()
+                    def number = output as Integer
+                    if (number < 30) {
+                        error "Number is less than 30 (${number}). Failing the build."
                     } else {
-                        error "Could not find the generated number in the output."
+                        echo "Number is ${number}. Build passed."
                     }
                 }
             }
+        }
+    }
+    post {
+        always {
+            echo "Cleaning up workspace..."
+            deleteDir()
         }
     }
 }
