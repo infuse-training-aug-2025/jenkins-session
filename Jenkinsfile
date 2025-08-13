@@ -26,8 +26,15 @@ pipeline {
         stage('Run Tests') {
             steps {
                 dir('workspace') {
-                    // Ensure Python is installed and pytest is available
-                    bat 'pytest test_number.py'
+                    script {
+                        def number = readFile('number.txt').trim().toInteger()
+                        echo "Number read from file: ${number}"
+                        if (number < 30) {
+                            error "❌ Test failed: Number ${number} is less than 30"
+                        } else {
+                            echo "✅ Test passed: Number ${number} is 30 or greater"
+                        }
+                    }
                 }
             }
         }
@@ -35,10 +42,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Number is valid (>=30). Pipeline passed.'
+            echo '✅ Number is valid. Pipeline passed.'
         }
         failure {
-            echo '❌ Number is too low. Pipeline failed.'
+            echo '❌ Validation failed or number was too low. Pipeline failed.'
         }
         always {
             echo '🧹 Cleaning workspace...'
