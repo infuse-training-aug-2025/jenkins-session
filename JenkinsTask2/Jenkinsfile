@@ -1,42 +1,23 @@
 pipeline {
     agent any
 
-    environment {
-        REPO = 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
-        BRANCH = 'Janardan'
-        DIR = 'repo-workspace'
-    }
-
     stages {
-        stage('Clone Repo') {
+        stage('Fast Task') {
             steps {
-                echo 'Cloning the repository...'
-                dir("${env.DIR}") {
-                    git branch: "${env.BRANCH}", url: "${env.REPO}"
-                }
+                echo 'Starting fast task...'
+                // Simulate ~5 seconds task
+                sleep time: 5, unit: 'SECONDS'
+                echo 'Fast task completed.'
             }
         }
 
-        stage('Run Batch Script') {
+        stage('Slow Task') {
             steps {
-                echo 'Executing BAT file...'
-                dir("${env.DIR}") {
-                    bat 'random_check.bat'
-                }
+                echo 'Starting slow task...'
+                // Simulate ~15 seconds task
+                sleep time: 15, unit: 'SECONDS'
+                echo 'Slow task completed.'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully ✅'
-        }
-        failure {
-            echo 'Pipeline failed ❌'
-        }
-        always {
-            echo 'Cleaning up workspace...'
-            deleteDir() // Deletes entire workspace
         }
     }
 }
