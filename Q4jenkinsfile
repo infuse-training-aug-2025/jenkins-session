@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Print Time') {
+            steps {
+                echo 'Current time is:'
+                bat 'time /T' 
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+    }
+}
