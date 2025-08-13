@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    stages {
+        stage('Parallel Tasks') {
+            parallel {
+                stage('Fast Task') {
+                    steps {
+                        bat 'q3_fast_task.bat'
+                    }
+                }
+                stage('Slow Task') {
+                    steps {
+                        bat 'q3_slow_task.bat'
+                    }
+                }
+            }
+        }
+    }
+}
