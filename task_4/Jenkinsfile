@@ -1,0 +1,16 @@
+
+pipeline {
+    agent any
+
+    triggers {
+        cron('* * * * *') // Every minute
+    }
+
+    stages {
+        stage('Show Current Time') {
+            steps {
+                echo "Current time is: ${new Date()}"
+            }
+        }
+    }
+}
