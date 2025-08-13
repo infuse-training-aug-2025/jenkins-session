@@ -11,7 +11,9 @@ pipeline {
             steps {
                 script {
                     def output = bat(script: 'random_number.bat', returnStdout: true).trim()
-                    def number = output as Integer
+                    def lines = output.readLines().findAll { it.trim() }
+                    def number = lines[-1].trim() as Integer  // last non-empty line
+
                     if (number < 30) {
                         error "Number is less than 30 (${number}). Failing the build."
                     } else {
