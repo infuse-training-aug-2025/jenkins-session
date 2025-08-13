@@ -1,0 +1,15 @@
+pipeline {
+    agent { label 'windows' }
+    stages {
+        stage('Fast Task (~5s)') {
+            steps {
+                bat 'q2_fast_task.bat'
+            }
+        }
+        stage('Slow Task (~15s)') {
+            steps {
+                bat 'q2_slow_task.bat'
+            }
+        }
+    }
+}
