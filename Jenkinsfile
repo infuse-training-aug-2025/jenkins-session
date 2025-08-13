@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Clone Repo, Switch to Branch') {
+            steps {
+                    git url: 'https://github.com/infuse-training-aug-2025/jenkins-session.git',branch:'Caron'
+            }
+        }
+        
+        stage('Run bat file'){
+            steps{
+                        bat 'Ex1/randNo.bat'
+            }
+        }
+        
+        stage('Log Success or Failure of bat file'){
+            steps{
+                    bat '''
+                    if %errorLevel% NEQ 0 (echo "Script Failed") else (echo "Script Passed")
+                    '''
+            }
+        }
+    }
+    
+    post {
+        // Logging Success or Failure of pipeline
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed!"
+        }
+        always {
+            cleanWs(deleteDirs: true,notFailBuild: true)
+            echo "Clean Up Done"
+        }
+    }
+}
