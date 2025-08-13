@@ -5,7 +5,8 @@ pipeline {
         stage('Fast Task') {
             steps {
                 echo 'Starting fast task (~5 seconds)'
-                bat 'timeout /T 5 /NOBREAK'
+                bat 'ping -n 6 127.0.0.1 > nul'
+
                 echo 'Fast task completed'
             }
         }
@@ -13,7 +14,8 @@ pipeline {
         stage('Slow Task') {
             steps {
                 echo 'Starting slow task (~15 seconds)'
-                bat 'timeout /T 15 /NOBREAK'
+                bat 'ping -n 16 127.0.0.1 > nul'
+
                 echo 'Slow task completed'
             }
         }
