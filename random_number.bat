@@ -1,11 +1,10 @@
 @echo off
-set /a randomNumber=%RANDOM% %% 60 + 1
-echo Generated Random Number: %randomNumber%
+setlocal EnableDelayedExpansion
 
-if %randomNumber% LSS 30 (
-    echo The number is less than 30. Failing the script.
-    exit /b 1
-) else (
-    echo The number is 30 or greater. Passing the script.
-    exit /b 0
-)
+:: Generate a number between 1 and 60
+set /a randNum=(%random% %% 60) + 1
+echo Generated number: !randNum!
+
+:: Write to a file
+echo !randNum! > number.txt
+exit /b 0
