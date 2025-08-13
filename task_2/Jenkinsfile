@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Fast Task') {
+            steps {
+                echo 'Starting fast task (~5 seconds)'
+                sleep 5
+                echo 'Fast task completed'
+            }
+        }
+
+        stage('Slow Task') {
+            steps {
+                echo 'Starting slow task (~15 seconds)'
+                sleep 15
+                echo 'Slow task completed'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'All tasks completed successfully!'
+        }
+        failure {
+            echo 'One of the tasks failed.'
+        }
+    }
+}
