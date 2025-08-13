@@ -2,21 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Fast Task') {
-            steps {
-                echo 'Starting fast task...'
-                // Simulate ~5 seconds task
-                sleep time: 5, unit: 'SECONDS'
-                echo 'Fast task completed.'
-            }
-        }
+        stage('Parallel Tasks') {
+            parallel {
+                stage('Fast Task') {
+                    steps {
+                        echo 'Starting fast task (~5 seconds)...'
+                        sleep time: 5, unit: 'SECONDS'
+                        echo 'Fast task completed.'
+                    }
+                }
 
-        stage('Slow Task') {
-            steps {
-                echo 'Starting slow task...'
-                // Simulate ~15 seconds task
-                sleep time: 15, unit: 'SECONDS'
-                echo 'Slow task completed.'
+                stage('Slow Task') {
+                    steps {
+                        echo 'Starting slow task (~15 seconds)...'
+                        sleep time: 15, unit: 'SECONDS'
+                        echo 'Slow task completed.'
+                    }
+                }
             }
         }
     }
