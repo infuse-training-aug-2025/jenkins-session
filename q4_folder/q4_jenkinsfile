@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    triggers {
+        cron('* * * * *') // Runs every minute
+    }
+    stages {
+        stage('Show Current Time') {
+            steps {
+                bat 'echo Current time is: %TIME%'
+            }
+        }
+    }
+}
