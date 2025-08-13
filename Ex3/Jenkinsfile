@@ -1,0 +1,36 @@
+pipeline{
+    agent any 
+    stages{
+        stage('Run parallel tasks'){
+            steps{
+                parallel(
+                    Fast:{
+                        echo 'Fast task started'
+                        bat 'ping 127.0.0.1 -n 6 > nul'
+                        echo 'Fast task completed'
+                    },
+                    Slow:{
+                        echo 'Slow task started'
+                        bat 'ping 127.0.0.1 -n 16 > nul'
+                        echo 'Slow task completed'
+                    }
+                )
+            }
+        }
+        
+    }
+    post {
+        success{
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        always{
+            cleanWs(deleteDirs:true, notFailBuild:true)
+            echo 'Workspace directory cleaned'
+
+        }
+
+    }
+}

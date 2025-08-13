@@ -1,0 +1,13 @@
+pipeline{
+    agent any 
+    stages{
+        stage('Output current time'){
+            steps{
+                script{
+                    def now = new Date()
+                    echo Time: now.format('HH:mm')   
+                }
+        }
+    }
+}
+}
