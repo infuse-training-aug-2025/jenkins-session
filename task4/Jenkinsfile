@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('* * * * *') // Runs every minute
+    }
+
+    stages {
+        stage('Print Current Time') {
+            steps {
+                script {
+                    def currentTime = new Date().format("yyyy-MM-dd HH:mm:ss")
+                    echo "🕒 Current time is: ${currentTime}"
+                }
+            }
+        }
+    }
+}
