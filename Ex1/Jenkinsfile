@@ -10,8 +10,10 @@ pipeline {
         
         stage('Run bat file'){
             steps{
-                        bat 'Ex1/randNo.bat'
-                        echo 'Error Code: %errorLevel%'
+                bat '''
+                bat Ex1/randNo.bat
+                echo Error Code: %errorLevel%
+                '''
             }
         }
         
