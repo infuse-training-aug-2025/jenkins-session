@@ -9,7 +9,7 @@ pipeline {
                     deleteDir()
 
                     // Clone specific branch
-                    git branch: 'my-branch', url: 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
+                    git branch: 'jenkinsshravani', url: 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
 
                     // Simulate .bat file logic directly here
                     def number = new Random().nextInt(60) + 1
