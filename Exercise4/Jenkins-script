@@ -1,0 +1,14 @@
+pipeline {
+    agent { label 'windows' }
+    triggers {
+        cron('* * * * *') // every minute
+    }
+    stages {
+        stage('Show Current Time') {
+            steps {
+                echo 'Fetching current time...'
+                bat 'echo Current time is: %TIME%'
+            }
+        }
+    }
+}

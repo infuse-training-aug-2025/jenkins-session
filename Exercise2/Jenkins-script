@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('Fast Task (~5s)') {
+            steps {
+                echo 'Starting fast task...'
+                sleep time: 5, unit: 'SECONDS' // simulate fast work
+                echo 'Fast task completed.'
+            }
+        }
+
+        stage('Slow Task (~15s)') {
+            steps {
+                echo 'Starting slow task...'
+                sleep time: 15, unit: 'SECONDS' // simulate slow work
+                echo 'Slow task completed.'
+            }
+        }
+    }
+}
