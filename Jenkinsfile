@@ -10,7 +10,7 @@ pipeline {
         stage('Run Batch Script') {
             steps {
                 script {
-                    def output = bat(script: 'Q1\\Random_Number.bat', returnStdout: true).trim()
+                    def output = bat(script: 'Random_Number.bat', returnStdout: true).trim()
                     def lines = output.readLines()
                     def number = lines[-1].toInteger()
                     echo "Random number: ${number}"
