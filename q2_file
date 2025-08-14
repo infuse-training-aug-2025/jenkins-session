@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Fast Task') {
+            steps {
+                echo "Fast task running (~5s)"
+                bat 'ping 127.0.0.1 -n 6 > nul'
+                echo "Fast task complete"
+            }
+        }
+        stage('Slow Task') {
+            steps {
+                echo "Slow task running (~15s)"
+                bat 'ping 127.0.0.1 -n 16 > nul'
+                echo "Slow task complete"
+            }
+        }
+    }
+}

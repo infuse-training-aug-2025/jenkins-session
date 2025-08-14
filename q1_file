@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Branch & Run Script') {
+            steps {
+                script {
+                    // Cleanup before start
+                    deleteDir()
+
+                    // Clone specific branch
+                    git branch: 'my-branch', url: 'https://github.com/infuse-training-aug-2025/jenkins-session.git'
+
+                    // Simulate .bat file logic directly here
+                    def number = new Random().nextInt(60) + 1
+                    echo "Generated number: ${number}"
+
+                    if (number < 30) {
+                        error "Random number < 30 — FAIL"
+                    } else {
+                        echo "Random number >= 30 — PASS"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning"
+            deleteDir()
+        }
+    }
+}
