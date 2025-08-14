@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('Output current time'){
             steps{
-                bat 'echo Time: %time%
+                bat 'echo Time: %time%'
         }
     }
 }
