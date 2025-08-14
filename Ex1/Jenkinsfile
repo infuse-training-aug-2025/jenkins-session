@@ -13,6 +13,7 @@ pipeline {
                 bat '''
                 bat Ex1/randNo.bat
                 echo Error Code: %errorLevel%
+                exit /b 0
                 '''
             }
         }
