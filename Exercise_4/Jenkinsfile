@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('* * * * *')
+    }
+
+    stages {
+        stage('Print Time') {
+            steps {
+                script {
+                    def currentTime = new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
+                    echo "Current time (UTC): ${currentTime}"
+                }
+            }
+        }
+    }
+}
