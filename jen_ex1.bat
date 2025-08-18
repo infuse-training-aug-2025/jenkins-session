@@ -13,4 +13,3 @@ if !rand! LSS 30 (
     echo Number is 30 or more. Passing script...
     exit /b 0
 )
-
